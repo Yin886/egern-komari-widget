@@ -1,0 +1,58 @@
+name: Komari 面板小组件
+description: Komari Monitor 节点状态主屏小组件（在线状态、CPU、内存、磁盘、三网延迟、到期提醒）
+author: Yin886
+icon: https://raw.githubusercontent.com/Yin886/egern-komari-widget/main/icons/komari-panel.svg
+compat_arguments:
+  panel: ''
+  policy: ''
+  token: ''
+  user: ''
+  pass: ''
+  only: ''
+  showHidden: 'false'
+compat_arguments_schema:
+  panel:
+    name: 面板地址
+    description: 例如 https://panel.example.com:8443，只填根地址，不要带 /admin 或 /api
+    default_value: ''
+  policy:
+    name: 请求策略
+    description: 请求走哪个代理策略或策略组（如 Proxy）；留空走默认规则
+    default_value: ''
+  token:
+    name: 登录令牌（私有站点）
+    description: 后台登录得到的令牌，与下面的账号密码二选一；公开站点留空
+    default_value: ''
+  user:
+    name: 后台账号（私有站点）
+    description: 填了账号和密码，脚本会自动登录并换取令牌
+    default_value: ''
+  pass:
+    name: 后台密码（私有站点）
+    description: 与后台账号配套使用
+    default_value: ''
+  only:
+    name: 只显示这些服务器
+    description: 名称或 ID，英文逗号分隔；留空显示全部
+    default_value: ''
+  showHidden:
+    name: 显示隐藏的服务器
+    description: 是否显示面板里被隐藏的服务器
+    default_value: 'false'
+    options:
+    - 'false'
+    - 'true'
+scriptings:
+- generic:
+    name: komari-panel
+    script_url: https://raw.githubusercontent.com/Yin886/egern-komari-widget/main/komari-panel.js
+    env:
+      PANEL: '{{{panel}}}'
+      POLICY: '{{{policy}}}'
+      TOKEN: '{{{token}}}'
+      USER: '{{{user}}}'
+      PASS: '{{{pass}}}'
+      ONLY: '{{{only}}}'
+      SHOW_HIDDEN: '{{{showHidden}}}'
+widgets:
+- name: komari-panel
